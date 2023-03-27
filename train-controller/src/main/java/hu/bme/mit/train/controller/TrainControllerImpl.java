@@ -7,19 +7,30 @@ public class TrainControllerImpl implements TrainController {
 	private int step = 0;
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
+	private boolean eBreak = false;
 
 	@Override
 	public void followSpeed() {
-		if (referenceSpeed < 0) {
-			referenceSpeed = 0;
-		} else {
-		    if(referenceSpeed+step > 0) {
-                referenceSpeed += step;
-            } else {
-		        referenceSpeed = 0;
-            }
+		if(!eBreak){
+			if (referenceSpeed < 0) {
+				referenceSpeed = 0;
+			} else {
+				if(referenceSpeed+step > 0) {
+					referenceSpeed += step;
+				} else {
+					referenceSpeed = 0;
+				}
+			}
+		}else{
+			if(referenceSpeed > 0){
+				if(step > 0)referenceSpeed -= step;
+				else referenceSpeed += step;
+				if(referenceSpeed < 0) referenceSpeed = 0;
+			}else{
+				this.eBreak = false;
+			}
 		}
-
+		
 		enforceSpeedLimit();
 	}
 
@@ -46,4 +57,8 @@ public class TrainControllerImpl implements TrainController {
 		this.step = joystickPosition;		
 	}
 
+	@Override
+	public void emergencyBreak(){
+		this.eBreak = true;
+	}
 }
