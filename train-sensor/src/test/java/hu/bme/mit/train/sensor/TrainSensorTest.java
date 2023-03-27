@@ -5,23 +5,24 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
+import hu.bme.mit.train.sensor.TrainSensorImpl;
+
 public class TrainSensorTest {
 
-    TrainController controller;
-	TrainSensor sensor;
-	TrainUser user;
+    TrainSensorImpl sensor;
 
     @Before
     public void before() {
-        // TODO Add initializations
-        TrainSystem system = new TrainSystem();
-		controller = system.getController();
-		sensor = system.getSensor();
-		user = system.getUser();
+		sensor = new TrainSensorImpl();
     }
 
     @Test
-    public void testOverrideSpeedLimit() {
+    public void testDefaultSpeedLimitValue(){
+        Assert.assertEquals(5, sensor.getSpeedLimit());
+    }
+
+    @Test
+    public void testOverrideSpeedLimitValue() {
         sensor.overrideSpeedLimit(120);
         Assert.assertEquals(120, sensor.getSpeedLimit());
     }
