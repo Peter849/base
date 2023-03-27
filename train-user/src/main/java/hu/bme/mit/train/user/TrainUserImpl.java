@@ -21,10 +21,15 @@ public class TrainUserImpl implements TrainUser {
 	public int getJoystickPosition() {
 		return joystickPosition;
 	}
+	
+	@Override
+	public void setEmergencyBreak(){
+		this.controller.emergencyBreak();
+	}
 
 	@Override
 	public void overrideJoystickPosition(int joystickPosition) {
-		this.joystickPosition = joystickPosition;
+		this.joystickPosition = joystickPosition;	
 		controller.setJoystickPosition(joystickPosition);
 	}
 
