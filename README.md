@@ -62,3 +62,13 @@ The figure below illustrates this behavior using an example.
 1. As the joystick remains at a positive value, the reference speed is incremented again.
 1. However, it reaches the speed limit so in the next step it is not incremented even though the joystick still has a positive value.
 1. Later, the joystick is set to a negative position for one time unit, making the reference speed to decrease as well.
+
+
+# Rendszertervezés laboratórium MIT2 mérés: Verziókezelők és folytonos integráció
+
+[Feladatleírás](https://ftsrg.mit.bme.hu/rete-lab-lecture-notes/retelab1-lab2-vcs-ci-exercises-hu.pdf)
+
+## Érintett témakörök, és használt technológiák:
+* Verziókezelő rendszerek - git
+* Fordítás automatizálás - Maven
+* Folytonos integráció (CI) - Github Actions
