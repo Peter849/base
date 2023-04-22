@@ -10,23 +10,32 @@ public class TrainControllerImpl implements TrainController {
 	private int step = 0;
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
-	private boolean overrideSpeed = false;
 	private boolean move = false;
 	// In seconds
 	private static int timeLimit = 5;
 
 	@Override
 	public void followSpeed() {
-		if (referenceSpeed < 0) {
-			referenceSpeed = 0;
-		} else {
-		    if(referenceSpeed+step > 0) {
-                referenceSpeed += step;
-            } else {
-		        referenceSpeed = 0;
-            }
+		if(!eBreak){
+			if (referenceSpeed < 0) {
+				referenceSpeed = 0;
+			} else {
+				if(referenceSpeed+step > 0) {
+					referenceSpeed += step;
+				} else {
+					referenceSpeed = 0;
+				}
+			}
+		}else{
+			if(referenceSpeed > 0){
+				if(step > 0)referenceSpeed -= step;
+				else referenceSpeed += step;
+				if(referenceSpeed < 0) referenceSpeed = 0;
+			}else{
+				this.eBreak = false;
+			}
 		}
-
+		
 		enforceSpeedLimit();
 	}
 
@@ -48,10 +57,6 @@ public class TrainControllerImpl implements TrainController {
 		move = false;
 	}
 
-	public static void setTimeLimit(int l) {
-		timeLimit = l;
-	}
-
 	@Override
 	public int getReferenceSpeed() {
 		return referenceSpeed;
@@ -65,13 +70,9 @@ public class TrainControllerImpl implements TrainController {
 	}
 
 	private void enforceSpeedLimit() {
-		if (!overrideSpeed && referenceSpeed > speedLimit) {
+		if (referenceSpeed > speedLimit) {
 			referenceSpeed = speedLimit;
 		}
-	}
-
-	public void setOverrideSpeed(boolean var){
-		overrideSpeed = var;
 	}
 
 	@Override
@@ -79,4 +80,8 @@ public class TrainControllerImpl implements TrainController {
 		this.step = joystickPosition;		
 	}
 
+	@Override
+	public void emergencyBreak(){
+		this.eBreak = true;
+	}
 }
