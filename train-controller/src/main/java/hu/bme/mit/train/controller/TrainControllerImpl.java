@@ -11,6 +11,7 @@ public class TrainControllerImpl implements TrainController {
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
 	private boolean move = false;
+	private boolean eBreak = false;
 	// In seconds
 	private static int timeLimit = 5;
 
