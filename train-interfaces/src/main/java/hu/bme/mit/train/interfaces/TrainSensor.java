@@ -9,11 +9,15 @@ public interface TrainSensor {
 
 	int getSpeedLimit();
 
-	void overrideSpeedLimit(int speedLimit);
+	void overrideSpeedLimit(int _speedLimit);
 
 	Table<Date, Integer, Integer> getTachograph();
 
 	void putToTachograph(Date rightTime, int joystickPosition, int referenceSpeed);
 
 	void removeFromTachograph(Date rightTime, int joystickPosition);
+
+	boolean checkAbsoluteLimit(int _speedLimit);
+
+	boolean checkRelativeLimit(int _speedLimit);
 }
